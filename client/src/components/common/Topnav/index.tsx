@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Logo from "./assets/logo.svg";
 import {
@@ -9,13 +9,13 @@ import {
   Input,
   Spinner,
 } from "reactstrap";
-import { MenuIcon, MobileMenuIcon } from "../../svg";
 import { localeOptions } from "../../../lib/utils";
-import { useAppContext } from "../context";
+import { useSelector } from "react-redux";
 
-export const Topnav = () => {
-  const { brand, isLoading } = useAppContext();
-  console.log("From Topnav", brand);
+const Topnav = () => {
+  const { data, isFetching } = useSelector((state) => state.brand.brand);
+
+  const profile = !isFetching && data && data.result[0].brand;
 
   return (
     <nav className="navbar fixed-top">
@@ -63,13 +63,13 @@ export const Topnav = () => {
         <div className="user d-inline-block">
           <UncontrolledDropdown className="dropdown-menu-right">
             <DropdownToggle className="p-0" color="empty">
-              {isLoading ? (
+              {isFetching ? (
                 <Spinner color="red">.</Spinner>
-              ) : brand && brand.displayName ? (
+              ) : profile && profile.displayName ? (
                 <>
-                  <img alt="Profile" src={brand.pic} />
+                  <img alt="Profile" src={profile.pic} />
                   <span className="text-decoration-underline fs-4 fw-bold ml-2">
-                    {brand.displayName.toString().toUpperCase()}
+                    {profile.displayName.toString().toUpperCase()}
                   </span>
                 </>
               ) : (
@@ -93,3 +93,5 @@ export const Topnav = () => {
     </nav>
   );
 };
+
+export default Topnav;

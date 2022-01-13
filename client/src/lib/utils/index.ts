@@ -2,7 +2,7 @@ import { RootColors } from "./colors";
 
 const colors = RootColors();
 const dashRoot = "/";
-
+export const apiUrl = "http://localhost:9000";
 export const sidebarItems = [
   {
     id: "brand",

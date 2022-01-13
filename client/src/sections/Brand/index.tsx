@@ -6,7 +6,8 @@ import {
   PurchasesPerBrand,
   PurchasesPerBrandVariables,
 } from "lib/graphql/queries/BrandbyId/__generated__/PurchasesPerBrand";
-import { useAppContext } from "components/common/context";
+import { useDispatch } from "react-redux";
+
 import {
   BestSellers,
   BrandChart,
@@ -15,6 +16,7 @@ import {
   StatisticRow,
 } from "components";
 import { PURCHASES_PER_BRAND } from "lib/graphql/queries";
+import useBrand from "lib/hooks/useBrand";
 
 interface MatchParams {
   id: string;
@@ -22,39 +24,25 @@ interface MatchParams {
 
 export const Brand = () => {
   const { id } = useParams<MatchParams>();
-  const { setBrandData, setIsloading, setNotLoading } = useAppContext();
-  const { loading, data, error, refetch } = useQuery<
-    PurchasesPerBrand,
-    PurchasesPerBrandVariables
-  >(PURCHASES_PER_BRAND, {
-    variables: {
-      offerId: parseInt(id),
-    },
-  });
+  const {
+    data: brandResult,
+    isFetching: isLoading,
+    error: brandError,
+  } = useBrand(id);
 
-  const brandResult = data ? data.purchasesPerBrand : null;
-  const brandResultDeeper = data ? data.purchasesPerBrand.result : null;
-
-  useEffect(() => {
-    if (loading) {
-      setIsloading();
-    } else if (!loading && brandResultDeeper) {
-      setNotLoading();
-      setBrandData(brandResultDeeper[0]?.brand);
-    }
-  }, [data]);
+  const brandResultDeeper = brandResult ? brandResult.result : null;
 
   return (
     <>
       <Row>
-        <StatisticRow isLoading={loading} brandData={brandResult} />
+        <StatisticRow isLoading={isLoading} brandData={brandResult} />
       </Row>
       <Row>
         <Colxx sm="12" md="6" className="mb-4">
-          <BrandChart isLoading={loading} />
+          <BrandChart isLoading={isLoading} />
         </Colxx>
         <Colxx sm="12" md="6" className="mb-4">
-          <BrandProductChart isLoading={loading} />
+          <BrandProductChart isLoading={isLoading} />
         </Colxx>
         <Colxx sm="12" md="8" className="mb-4 mt-4">
           <BestSellers brandData={brandResultDeeper} />

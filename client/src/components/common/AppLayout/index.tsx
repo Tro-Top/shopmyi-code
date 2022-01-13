@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import { Footer, Sidebar, Topnav } from "..";
+import { Footer, Sidebar } from "..";
+import Topnav from "../Topnav";
 
 export const AppLayout: FC = ({ children }) => {
   return (

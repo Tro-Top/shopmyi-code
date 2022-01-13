@@ -17,8 +17,8 @@ const mount = async (app: Application) => {
   app.use(compression());
   app.use(cors());
 
-  app.use(express.static(`${__dirname}/client`));
-  app.get("/*", (_req, res) => res.sendFile(`${__dirname}/client/index.html`));
+  // app.use(express.static(`${__dirname}/client`));
+  // app.get("/*", (_req, res) => res.sendFile(`${__dirname}/client/index.html`));
 
   const server = new ApolloServer({
     typeDefs,

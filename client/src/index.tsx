@@ -7,8 +7,9 @@ import * as serviceWorker from "./serviceWorker";
 import "./styles/vendor/bootstrap.min.css";
 import "./styles/sass/themes/gogo.light.blueyale.scss";
 import { Brand, Home } from "./sections";
-import { ManagedAppContext } from "./components/common/context";
 import { AppLayout } from "components/common";
+import { Provider } from "react-redux";
+import store from "lib/redux/store";
 const client = new ApolloClient({
   uri: "/api",
   request: async (operation) => {},
@@ -36,11 +37,11 @@ const App = () => {
 };
 
 render(
-  <ManagedAppContext>
-    <ApolloProvider client={client as any}>
+  <ApolloProvider client={client as any}>
+    <Provider store={store}>
       <App />
-    </ApolloProvider>
-  </ManagedAppContext>,
+    </Provider>
+  </ApolloProvider>,
   document.getElementById("root")
 );
 

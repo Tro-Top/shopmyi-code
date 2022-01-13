@@ -18,7 +18,6 @@ export const influencerResolvers: IResolvers = {
           .equalTo(influencerId)
           .once("child_added")
           .then((snap) => snap.val());
-        console.log(ref);
 
         return ref;
       } catch (error) {

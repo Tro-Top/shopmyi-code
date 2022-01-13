@@ -7,16 +7,8 @@ import {
   UsePaginationInstanceProps,
 } from "react-table";
 import { Card, CardBody, CardTitle, Spinner } from "reactstrap"; //
-import {
-  BrandById_purchasesPerBrand,
-  BrandById_purchasesPerBrand_result,
-  BrandById_purchasesPerBrand_result_brand,
-  BrandById_purchasesPerBrand_result_byInfluencer,
-} from "lib/graphql/queries/BrandbyId/__generated__/BrandById";
-import {
-  PurchasesPerBrand_purchasesPerBrand,
-  PurchasesPerBrand_purchasesPerBrand_result,
-} from "lib/graphql/queries/BrandbyId/__generated__/PurchasesPerBrand";
+import { BrandById_purchasesPerBrand_result_byInfluencer } from "lib/graphql/queries/BrandbyId/__generated__/BrandById";
+import { PurchasesPerBrand_purchasesPerBrand_result } from "lib/graphql/queries/BrandbyId/__generated__/PurchasesPerBrand";
 
 const Table = ({ columns, data }: any) => {
   return (
@@ -38,7 +30,7 @@ const Table = ({ columns, data }: any) => {
               ) => {
                 return (
                   <tr>
-                    <NavLink to={`/influencer/${row.email}`}>
+                    <NavLink to={`/influencer/${row.influencerId}`}>
                       <td>
                         <img
                           src={row.banner?.toString()}

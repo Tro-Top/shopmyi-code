@@ -13,6 +13,7 @@ export interface PurchasesPerBrand_purchasesPerBrand_result_byInfluencer {
   email: string | null;
   name: string | null;
   createdAt: string | null;
+  influencerId: string | null;
 }
 
 export interface PurchasesPerBrand_purchasesPerBrand_result_brand {
